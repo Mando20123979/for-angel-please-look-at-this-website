@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>For Angel 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --pink: #ff8fb1;
+      --deep: #e5487f;
+      --soft: #fff0f5;
+      --text: #7a2e4d;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Quicksand", sans-serif;
+      color: var(--text);
+      background: linear-gradient(135deg, #ffd6e7, #ffe9f1 50%, #ffc2d9);
+      overflow: hidden;
+      padding: 16px;
+    }
+    .heart {
+      position: fixed;
+      bottom: -40px;
+      user-select: none;
+      pointer-events: none;
+      animation: float linear infinite;
+      opacity: 0.8;
+    }
+    @keyframes float {
+      to { transform: translateY(-115vh) rotate(25deg); opacity: 0; }
+    }
+    .card {
+      position: relative;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(6px);
+      border-radius: 28px;
+      padding: 40px 32px;
+      max-width: 460px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(229, 72, 127, 0.25);
+    }
+    .big-heart {
+      font-size: 64px;
+      display: inline-block;
+      animation: beat 1.2s ease-in-out infinite;
+    }
+    @keyframes beat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.18); }
+    }
+    h1 {
+      font-family: "Pacifico", cursive;
+      font-size: 2.6rem;
+      color: var(--deep);
+      margin: 8px 0 12px;
+    }
+    p { font-size: 1.1rem; line-height: 1.6; margin-bottom: 14px; }
+    .question { font-weight: 700; font-size: 1.25rem; margin: 20px 0; }
+    .buttons {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      align-items: center;
+      min-height: 56px;
+      position: relative;
+    }
+    button {
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 1.05rem;
+      border: none;
+      border-radius: 999px;
+      padding: 12px 28px;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    #yes { background: var(--deep); color: white; box-shadow: 0 6px 16px rgba(229,72,127,.4); }
+    #yes:hover { transform: scale(1.08); }
+    #no { background: #ffd1e0; color: var(--text); }
+    #result { display: none; }
+    #result .big-heart { font-size: 56px; }
+    .sig { font-family: "Pacifico", cursive; color: var(--deep); font-size: 1.3rem; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <div class="card" id="main">
+    <div class="big-heart">💖</div>
+    <h1>Hey Angel</h1>
+    <p>I have a little secret to tell you...</p>
+    <p><b>I have a crush on you.</b> 🥺 Your smile makes my whole day better, and I really, really like you.</p>
+    <p class="question">Will you give me a chance? 💌</p>
+    <div class="buttons">
+      <button id="yes">Yes 💕</button>
+      <button id="no">No 😢</button>
+    </div>
+  </div>
+
+  <div class="card" id="result">
+    <div class="big-heart">🥰</div>
+    <h1>Yay!!</h1>
+    <p>You just made me the happiest person ever. I can't stop smiling!</p>
+    <p>Thank you for being you, Angel. ✨</p>
+    <div class="sig">Your secret admirer 💘</div>
+  </div>
+
+  <script>
+    // Floating hearts
+    const emojis = ["💖", "💗", "💕", "💘", "🌸", "✨"];
+    function spawnHeart() {
+      const h = document.createElement("div");
+      h.className = "heart";
+      h.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      h.style.left = Math.random() * 100 + "vw";
+      h.style.fontSize = 16 + Math.random() * 28 + "px";
+      h.style.animationDuration = 5 + Math.random() * 6 + "s";
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 11000);
+    }
+    setInterval(spawnHeart, 350);
+
+    // Playful "No" button that dodges
+    const no = document.getElementById("no");
+    function dodge() {
+      no.style.position = "fixed";
+      const x = Math.random() * (window.innerWidth - no.offsetWidth - 20) + 10;
+      const y = Math.random() * (window.innerHeight - no.offsetHeight - 20) + 10;
+      no.style.left = x + "px";
+      no.style.top = y + "px";
+      no.style.zIndex = 5;
+    }
+    no.addEventListener("mouseenter", dodge);
+    no.addEventListener("touchstart", (e) => { e.preventDefault(); dodge(); });
+    no.addEventListener("click", dodge);
+
+    // Yes!
+    document.getElementById("yes").addEventListener("click", () => {
+      document.getElementById("main").style.display = "none";
+      no.style.display = "none";
+      document.getElementById("result").style.display = "block";
+      for (let i = 0; i < 40; i++) setTimeout(spawnHeart, i * 40);
+    });
+  </script>
+</body>
+</html>
